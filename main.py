@@ -9,7 +9,6 @@ import timeit
 
 import game
 import Minimax
-import MCTS
 
 def readBoard(file):
     count = 0
@@ -156,7 +155,7 @@ def saveBoard3(res, file):
 
 p1, p2 = False, False
 
-for i in range(0, 5):
+for i in range(0, 1):
     restart()
     cg = game.CoGanh()
     inp = 'X'

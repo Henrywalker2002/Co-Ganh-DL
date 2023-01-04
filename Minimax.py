@@ -41,11 +41,24 @@ class Solver:
         self.end = None
         self.NN = NN()
     
+    def countNum(self, board, player):
+        count = 0
+        for x in board:
+            for y in x:
+                if y == player:
+                    count += 1
+        return count
+    
     def evaluate(self, board):
         # result = sum(map(sum, board))
         # if self.player == -1:
         #     result *= -1
         # return result
+        if sum(map(sum, board)) == 16:
+            return 1
+        # if self.countNum(board, -1) == 1:
+        #     self.depth = 4
+            
         result = self.NN.getRes(board)
         res = result[0][0] - result[0][1]
         if self.player == -1:
