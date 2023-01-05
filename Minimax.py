@@ -42,28 +42,52 @@ class Solver:
         self.NN = NN()
     
     def countNum(self, board, player):
+        pos = (0, 0)
         count = 0
-        for x in board:
-            for y in x:
-                if y == player:
+        for i in range(0,5):
+            for j in range(0,5):
+                if board[i][j] == player:
                     count += 1
-        return count
+                    pos = (i,j)
+        return count, pos
     
     def evaluate(self, board):
-        # result = sum(map(sum, board))
+        # result = np.sum(temp))
         # if self.player == -1:
         #     result *= -1
         # return result
+        temp = np.array(board)
         if sum(map(sum, board)) == 16:
             return 1
-        # if self.countNum(board, -1) == 1:
-        #     self.depth = 4
-            
-        result = self.NN.getRes(board)
-        res = result[0][0] - result[0][1]
-        if self.player == -1:
-            res *= -1
-        return res
+        if self.countNum(board, -1)[0] == 1:
+            x,y = self.countNum(board, -1)[1]
+            if x > 0 and x < 4:
+                if y > 0 and y < 4:
+                    return np.sum(temp[x-1:x+2,y-1:y + 2])
+                elif y == 0:
+                    return np.sum(temp[x-1:x+2,0:y+2])
+                else:
+                    return np.sum(temp[x-1:x+2,y-1:5])
+            elif x == 0:
+                if y > 0 and y < 4:
+                    return np.sum(temp[0:x+2,y-1:y + 2])
+                elif y == 0:
+                    return np.sum(temp[0:x+2,0:y+2])
+                else:
+                    return np.sum(temp[0:x+2,y-1:5])
+            else:
+                if y > 0 and y < 4:
+                    return np.sum(temp[x-1:5,y-1:y + 2])
+                elif y == 0:
+                    return np.sum(temp[x-1:5,0:y+2])
+                else:
+                    return np.sum(temp[x-1:5,y-1:5])
+        else:
+            result = self.NN.getRes(board)
+            res = result[0][0] - result[0][1]
+            if self.player == -1:
+                res *= -1
+            return res
     
     def play(self, node, dp):
         if dp > self.depth: 

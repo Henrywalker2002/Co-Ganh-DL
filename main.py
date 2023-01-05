@@ -55,7 +55,7 @@ def move_1(prev_board, board, player, remain_time_x, remain_time_y):
     
     # Use depth = 2 when fighting online with 'random move' bot
     # Use depth >= 4 when fighting offline with another teams's bot
-    depth = 2
+    depth = 1
     
     solver = Minimax.Solver(depth, board, player)
     result = solver.solv()
@@ -132,12 +132,18 @@ def choose_algorithm(alg):
         return
 
 def restart():
+    # with open('input.txt', 'w') as f:
+    #     f.write(' 1  1  1  1  1\n')
+    #     f.write(' 1  0  0  0  1\n')
+    #     f.write('-1  0  0  0  1\n')
+    #     f.write('-1  0  0  0 -1\n')
+    #     f.write('-1 -1 -1 -1 -1')
     with open('input.txt', 'w') as f:
+        f.write(' 1  0  0  0 -1\n')
         f.write(' 1  1  1  1  1\n')
-        f.write(' 1  0  0  0  1\n')
-        f.write('-1  0  0  0  1\n')
-        f.write('-1  0  0  0 -1\n')
-        f.write('-1 -1 -1 -1 -1')
+        f.write(' 1  1  0  1  0\n')
+        f.write(' 1  0  1  0  1\n')
+        f.write(' 0  1  0  1  1')
 
 def saveBoard2(board, file):
     with open(file, 'a') as f:
@@ -155,7 +161,7 @@ def saveBoard3(res, file):
 
 p1, p2 = False, False
 
-for i in range(0, 1):
+for i in range(0, 10):
     restart()
     cg = game.CoGanh()
     inp = 'X'
