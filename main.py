@@ -161,7 +161,7 @@ def saveBoard3(res, file):
 
 p1, p2 = False, False
 
-for i in range(0, 10):
+for i in range(0, 50):
     restart()
     cg = game.CoGanh()
     inp = 'X'

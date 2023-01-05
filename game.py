@@ -595,10 +595,14 @@ class CoGanh:
         if score == 16:
             if notice:
                 print("\nX WIN!!!")
+                f = open('res.txt', 'a')
+                f.write('X win\n')
             return True
         elif score == -16:
             if notice:
                 print("\nO WIN!!!")
+                f = open('res.txt', 'a')
+                f.write('O win\n')
             return True
         return False
     
