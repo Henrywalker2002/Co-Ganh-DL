@@ -12,21 +12,29 @@ class NN:
     def __init__(self) -> None:
         self.model = Sequential()
 
-        self.model.add(Conv2D(filters=64, kernel_size=1, activation='relu', input_shape= (5,5,1)))
+        # self.model.add(Conv2D(filters=64, kernel_size=1, activation='relu', input_shape= (5,5,1)))
+        # self.model.add(MaxPooling2D())
+        # self.model.add(Conv2D(filters=24, kernel_size=1, activation='relu'))
+        # self.model.add(MaxPooling2D())
+        # self.model.add(Conv2D(filters=10, kernel_size=1, activation='relu'))
+        # self.model.add(Flatten())
+        # self.model.add(BatchNormalization())
+        # self.model.add(Dense(2, activation = "softmax"))
+        # self.model.load_weights('f.h5')
+    
+        self.model.add(Conv2D(filters=5, kernel_size=1, activation='relu', input_shape= (5,5,1)))
         self.model.add(MaxPooling2D())
-        self.model.add(Conv2D(filters=24, kernel_size=1, activation='relu'))
-        self.model.add(MaxPooling2D())
-        self.model.add(Conv2D(filters=10, kernel_size=1, activation='relu'))
+        self.model.add(Conv2D(filters=3, kernel_size=1, activation='relu'))
         self.model.add(Flatten())
         self.model.add(BatchNormalization())
         self.model.add(Dense(2, activation = "softmax"))
+        self.model.load_weights('f2.h5')
         
-        self.model.load_weights('f.h5')
     def getRes(self, board):
         arr = np.array(board)
         arr = np.expand_dims(arr, 0)
         arr = np.expand_dims(arr, -1)
-        return self.model.predict(arr)
+        return self.model.predict(arr, verbose = 0)
         
 class Solver:
     def __init__(self,

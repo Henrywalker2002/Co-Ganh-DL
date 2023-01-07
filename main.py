@@ -132,18 +132,18 @@ def choose_algorithm(alg):
         return
 
 def restart():
-    # with open('input.txt', 'w') as f:
-    #     f.write(' 1  1  1  1  1\n')
-    #     f.write(' 1  0  0  0  1\n')
-    #     f.write('-1  0  0  0  1\n')
-    #     f.write('-1  0  0  0 -1\n')
-    #     f.write('-1 -1 -1 -1 -1')
     with open('input.txt', 'w') as f:
-        f.write(' 1  0  0  0 -1\n')
         f.write(' 1  1  1  1  1\n')
-        f.write(' 1  1  0  1  0\n')
-        f.write(' 1  0  1  0  1\n')
-        f.write(' 0  1  0  1  1')
+        f.write(' 1  0  0  0  1\n')
+        f.write('-1  0  0  0  1\n')
+        f.write('-1  0  0  0 -1\n')
+        f.write('-1 -1 -1 -1 -1')
+    # with open('input.txt', 'w') as f:
+    #     f.write(' 1  0  0  0 -1\n')
+    #     f.write(' 1  1  1  1  1\n')
+    #     f.write(' 1  1  0  1  0\n')
+    #     f.write(' 1  0  1  0  1\n')
+    #     f.write(' 0  1  0  1  1')
 
 def saveBoard2(board, file):
     with open(file, 'a') as f:
@@ -161,7 +161,7 @@ def saveBoard3(res, file):
 
 p1, p2 = False, False
 
-for i in range(0, 50):
+for i in range(0, 4):
     restart()
     cg = game.CoGanh()
     inp = 'X'
@@ -169,10 +169,13 @@ for i in range(0, 50):
     remain_time_y = 100
 
     algorithm = choose_algorithm('minimax')
+    al2 = choose_algorithm('mcts')
     count = 0
     while True:
         print('================================================\n- TURN: ' + inp)
-        
+        count += 1
+        if count == 100:
+            break
         if inp == 'x' or inp == 'X':
             prev_board = []
             board = readBoard('input.txt')
@@ -188,7 +191,6 @@ for i in range(0, 50):
             saveBoard(board, 'output.txt')
             
             saveBoard2(board, 'p1.txt')
-            count += 1
             if cg.end_game(board):
                 f = open('p1.txt', 'a')
                 f.write(str(1) + '\n')
@@ -210,7 +212,7 @@ for i in range(0, 50):
             saveBoard(board, 'input.txt')
             
             saveBoard2(board, 'p1.txt')
-            count += 1
+
             if cg.end_game(board):
                 f = open('p1.txt', 'a')
                 f.write(str(-1) + '\n')
